@@ -1,4 +1,4 @@
-class ProductsController < ApplicationController
+class V2::ProductsController < ApplicationController
   def all_products_method
     products = Product.all
     render json: products.as_json
@@ -16,6 +16,6 @@ class ProductsController < ApplicationController
 
   def third_product_method
     product = Product.third
-    render json: product.as_json
+    render json: {message: "hello", product: product.as_json}
   end
 end
