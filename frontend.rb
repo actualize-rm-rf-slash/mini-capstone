@@ -15,14 +15,19 @@ if input_option == "1"
   puts JSON.pretty_generate(products)
 elsif input_option == "2"
   params = {
-    name: "Test Name",
-    price: 100,
+    price: -34,
     image_url: "https://www.outbrain.com/techblog/wp-content/uploads/2017/05/road-sign-361513_960_720.jpg",
     description: "Test description"
   }
   response = Unirest.post("http://localhost:3000/v1/products", parameters: params)
   product = response.body
-  puts JSON.pretty_generate(product)
+  if product["errors"]
+    puts "Uh oh! Something went wrong..."
+    p product["errors"]
+  else
+    puts "Here is your product info:"
+    puts JSON.pretty_generate(product)
+  end
 elsif input_option == "3"
   print "Enter a product id: "
   product_id = gets.chomp
@@ -33,14 +38,19 @@ elsif input_option == "4"
   print "Enter a product id: "
   product_id = gets.chomp
   params = {
-    name: "Updated Name",
     price: 0,
     image_url: "https://www.outbrain.com/techblog/wp-content/uploads/2017/05/road-sign-361513_960_720.jpg",
     description: "Updated description"
   }
   response = Unirest.patch("http://localhost:3000/v1/products/#{product_id}", parameters: params)
   product = response.body
-  puts JSON.pretty_generate(product)
+  if product["errors"]
+    puts "Uh oh! Something went wrong..."
+    p product["errors"]
+  else
+    puts "Here is your product info:"
+    puts JSON.pretty_generate(product)
+  end
 elsif input_option == "5"
   print "Enter a product id: "
   product_id = gets.chomp
