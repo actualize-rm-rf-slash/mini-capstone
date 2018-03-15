@@ -3,6 +3,7 @@ require "unirest"
 system "clear"
 puts "Choose an option:"
 puts "[1] Show all products"
+puts "  [1.1] Search products with the word saber"
 puts "[2] Create a product"
 puts "[3] Show one product"
 puts "[4] Update a product"
@@ -11,6 +12,10 @@ puts "[5] Delete a product"
 input_option = gets.chomp
 if input_option == "1"
   response = Unirest.get("http://localhost:3000/v1/products")
+  products = response.body
+  puts JSON.pretty_generate(products)
+elsif input_option == "1.1"
+  response = Unirest.get("http://localhost:3000/v1/products?q=saber")
   products = response.body
   puts JSON.pretty_generate(products)
 elsif input_option == "2"

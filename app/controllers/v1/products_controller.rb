@@ -1,6 +1,12 @@
 class V1::ProductsController < ApplicationController
   def index
     products = Product.all
+
+    search_terms = params[:q]
+    if search_terms
+      products = products.where("name ILIKE ?", "%#{search_terms}%")
+    end
+
     render json: products.as_json
   end
 
