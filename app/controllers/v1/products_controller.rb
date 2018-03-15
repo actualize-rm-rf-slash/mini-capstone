@@ -7,6 +7,13 @@ class V1::ProductsController < ApplicationController
       products = products.where("name ILIKE ?", "%#{search_terms}%")
     end
 
+    i_should_sort_by_price = params[:sort_by_price]
+    if i_should_sort_by_price
+      products = products.order(price: :asc)
+    else
+      products = products.order(id: :asc)
+    end
+
     render json: products.as_json
   end
 
