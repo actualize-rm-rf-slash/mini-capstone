@@ -11,6 +11,11 @@ class Product < ApplicationRecord
     Supplier.find_by(id: supplier_id)
   end
 
+  # a product has many images
+  def images
+    Image.where(product_id: id)
+  end
+
   def is_discounted
     price <= 2
   end
@@ -28,12 +33,12 @@ class Product < ApplicationRecord
       id: id,
       name: name,
       description: description,
-      image_url: image_url,
       price: price,
       tax: tax,
       total: total,
       is_discounted: is_discounted,
-      supplier: supplier.as_json
+      supplier: supplier.as_json,
+      images: images.map { |image| image.url }
     }
   end
 end
