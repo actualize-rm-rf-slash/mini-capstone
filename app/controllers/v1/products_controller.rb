@@ -18,17 +18,21 @@ class V1::ProductsController < ApplicationController
   end
 
   def create
-    product = Product.new(
-      name: params[:name],
-      price: params[:price],
-      description: params[:description]      
-    )
-    if product.save
-      # image = Image.new(url: params[:image_url], product_id: product.id)
-      # image.save
-      render json: product.as_json
+    if current_user && current_user.admin
+      product = Product.new(
+        name: params[:name],
+        price: params[:price],
+        description: params[:description]      
+      )
+      if product.save
+        # image = Image.new(url: params[:image_url], product_id: product.id)
+        # image.save
+        render json: product.as_json
+      else
+        render json: {errors: product.errors.full_messages}, status: :unprocessable_entity
+      end
     else
-      render json: {errors: product.errors.full_messages}, status: :unprocessable_entity
+      render json: {}, status: :unauthorized
     end
   end
 
