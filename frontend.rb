@@ -2,6 +2,30 @@ require "unirest"
 
 system "clear"
 puts "Choose an option:"
+puts "[1] Signup"
+puts "[2] Login"
+puts "[3] Logout"
+
+input_option = gets.chomp
+if input_option == "1"
+  response = Unirest.post(
+    "http://localhost:3000/v1/users",
+    parameters: {
+      name: "Saron",
+      email: "saron@email.com",
+      password: "password",
+      password_confirmation: "password"
+    }
+  )
+  p response.body
+end
+
+
+puts "Press enter to continue"
+gets.chomp
+
+system "clear"
+puts "Choose an option:"
 puts "[1] Show all products"
 puts "  [1.1] Search products with the word saber"
 puts "  [1.2] Sort products by price ascending"
