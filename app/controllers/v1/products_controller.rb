@@ -22,7 +22,8 @@ class V1::ProductsController < ApplicationController
       product = Product.new(
         name: params[:name],
         price: params[:price],
-        description: params[:description]      
+        description: params[:description],
+        supplier_id: 1
       )
       if product.save
         # image = Image.new(url: params[:image_url], product_id: product.id)
