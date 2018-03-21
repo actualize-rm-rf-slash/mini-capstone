@@ -1,4 +1,6 @@
 class V1::ProductsController < ApplicationController
+  before_action :authenticate_admin, except: [:index, :show]
+
   def index
     products = Product.all
 
@@ -18,22 +20,18 @@ class V1::ProductsController < ApplicationController
   end
 
   def create
-    if current_user && current_user.admin
-      product = Product.new(
-        name: params[:name],
-        price: params[:price],
-        description: params[:description],
-        supplier_id: 1
-      )
-      if product.save
-        # image = Image.new(url: params[:image_url], product_id: product.id)
-        # image.save
-        render json: product.as_json
-      else
-        render json: {errors: product.errors.full_messages}, status: :unprocessable_entity
-      end
+    product = Product.new(
+      name: params[:name],
+      price: params[:price],
+      description: params[:description],
+      supplier_id: 1
+    )
+    if product.save
+      # image = Image.new(url: params[:image_url], product_id: product.id)
+      # image.save
+      render json: product.as_json
     else
-      render json: {}, status: :unauthorized
+      render json: {errors: product.errors.full_messages}, status: :unprocessable_entity
     end
   end
 

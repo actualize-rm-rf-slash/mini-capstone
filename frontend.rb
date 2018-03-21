@@ -23,7 +23,7 @@ elsif input_option == "2"
     "http://localhost:3000/user_token",
     parameters: {
       auth: {
-        email: "peter@email.com",
+        email: "saron@email.com",
         password: "password"
       }
     }
@@ -69,7 +69,8 @@ elsif input_option == "1.2"
   puts JSON.pretty_generate(products)
 elsif input_option == "2"
   params = {
-    price: -34,
+    name: "New product",
+    price: 34,
     image_url: "https://www.outbrain.com/techblog/wp-content/uploads/2017/05/road-sign-361513_960_720.jpg",
     description: "Test description"
   }
