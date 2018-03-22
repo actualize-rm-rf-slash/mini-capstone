@@ -47,6 +47,7 @@ puts "Choose an option:"
 puts "[1] Show all products"
 puts "  [1.1] Search products with the word saber"
 puts "  [1.2] Sort products by price ascending"
+puts "  [1.3] Show products in weapons category"
 puts "[2] Create a product"
 puts "[3] Show one product"
 puts "[4] Update a product"
@@ -65,6 +66,10 @@ elsif input_option == "1.1"
   puts JSON.pretty_generate(products)
 elsif input_option == "1.2"
   response = Unirest.get("http://localhost:3000/v1/products?sort_by_price=true")
+  products = response.body
+  puts JSON.pretty_generate(products)
+elsif input_option == "1.3"
+  response = Unirest.get("http://localhost:3000/v1/products?category=Weapons")
   products = response.body
   puts JSON.pretty_generate(products)
 elsif input_option == "2"
