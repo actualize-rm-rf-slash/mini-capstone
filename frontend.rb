@@ -54,6 +54,7 @@ puts "[4] Update a product"
 puts "[5] Delete a product"
 puts "[6] Order a product"
 puts "[7] See all orders"
+puts "[8] Add product to cart"
 
 input_option = gets.chomp
 if input_option == "1"
@@ -130,4 +131,16 @@ elsif input_option == "7"
   response = Unirest.get("http://localhost:3000/v1/orders")
   orders = response.body
   puts JSON.pretty_generate(orders)
+elsif input_option == "8"
+  print "Enter a product id: "
+  input_product_id = gets.chomp
+  print "Enter a quantity: "
+  input_quantity = gets.chomp
+  params = {
+    product_id: input_product_id,
+    quantity: input_quantity
+  }
+  response = Unirest.post("http://localhost:3000/v1/carted_products", parameters: params)
+  carted_product = response.body
+  puts JSON.pretty_generate(carted_product)
 end
