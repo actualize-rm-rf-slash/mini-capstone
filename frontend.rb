@@ -56,6 +56,7 @@ puts "[6] Order everything in shopping cart"
 puts "[7] See all orders"
 puts "[8] Add product to cart"
 puts "[9] See shopping cart"
+puts "[10] Remove product from cart"
 
 input_option = gets.chomp
 if input_option == "1"
@@ -144,4 +145,10 @@ elsif input_option == "9"
   response = Unirest.get("http://localhost:3000/v1/carted_products")
   carted_products = response.body
   puts JSON.pretty_generate(carted_products)
+elsif input_option == "10"
+  print "Enter carted product id to remove: "
+  input_carted_product_id = gets.chomp
+  response = Unirest.delete("http://localhost:3000/v1/carted_products/#{input_carted_product_id}")
+  message = response.body
+  puts JSON.pretty_generate(message)
 end
