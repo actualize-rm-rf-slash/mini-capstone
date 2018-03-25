@@ -52,7 +52,7 @@ puts "[2] Create a product"
 puts "[3] Show one product"
 puts "[4] Update a product"
 puts "[5] Delete a product"
-puts "[6] Order a product"
+puts "[6] Order everything in shopping cart"
 puts "[7] See all orders"
 puts "[8] Add product to cart"
 puts "[9] See shopping cart"
@@ -120,11 +120,7 @@ elsif input_option == "5"
   body = response.body
   puts JSON.pretty_generate(body)
 elsif input_option == "6"
-  params = {
-    product_id: 2,
-    quantity: 4
-  }
-  response = Unirest.post("http://localhost:3000/v1/orders", parameters: params)
+  response = Unirest.post("http://localhost:3000/v1/orders")
   order = response.body
   puts JSON.pretty_generate(order)
 elsif input_option == "7"
